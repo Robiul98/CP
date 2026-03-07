@@ -1,0 +1,34 @@
+// check the gcc version and replace
+// name the file -> cp.sublime-build
+// ubuntu
+{
+	"cmd" : ["g++ -std=c++20 $file_name -o $file_base_name && timeout 4s ./$file_base_name<input.txt>output.txt"], 
+	"selector" : "source.c",
+	"shell": true,
+  "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+	"working_dir" : "$file_path"
+}
+// windows
+{
+	"cmd": ["g++.exe","-std=c++20", "${file}", "-o", "${file_base_name}.exe", "&&" , "${file_base_name}.exe<input.txt>output.txt"],
+	"selector":"source.cpp",
+	"shell":true,
+	"working_dir":"$file_path"
+}
+// mac
+{
+  "cmd" : ["g++-20 $file_name -o $file_base_name && gtimeout 4s ./$file_base_name<input.txt>output.txt"], 
+  "selector" : "source.c",
+  "shell": true,
+  "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+  "working_dir" : "$file_path"
+}
+// WSL
+{
+  "cmd": ["bash", "-c", "g++ -std=c++20 '$file_name' -o '$file_base_name' && timeout 4s './$file_base_name' < input.txt > output.txt"],
+  "selector": "source.c++",
+  "shell": false,
+  "working_dir": "$file_path",
+  // for errors
+  "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+}
